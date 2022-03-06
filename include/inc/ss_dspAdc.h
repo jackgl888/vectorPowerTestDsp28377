@@ -22,7 +22,7 @@ typedef struct
 
 void SetupADCEpwm(void);
 
-void ConfigureADC(void);
+void ConfigureADC(void);  //test
 
 
 
