@@ -1,7 +1,6 @@
 # FIXED
 
 source/src/ss_system.obj: ../source/src/ss_system.c
-source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h
 source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_include.h
 source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/F28x_Project.h
 source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/F2837xD_Cla_typedefs.h
@@ -73,14 +72,12 @@ source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_pid.h
 source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/IQmathLib.h
 source/src/ss_system.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/limits.h
 source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_filter.h
-source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h
 source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_rs485.h
-source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_include.h
 source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_buckboost.h
+source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_tp.h
+source/src/ss_system.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h
 
 ../source/src/ss_system.c:
-
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h:
 
 D:/workspace_v11/Lab20_EPWM/include/inc/ss_include.h:
 
@@ -224,11 +221,11 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/limits.h:
 
 D:/workspace_v11/Lab20_EPWM/include/inc/ss_filter.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h:
-
 D:/workspace_v11/Lab20_EPWM/include/inc/ss_rs485.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_include.h:
-
 D:/workspace_v11/Lab20_EPWM/include/inc/ss_buckboost.h:
+
+D:/workspace_v11/Lab20_EPWM/include/inc/ss_tp.h:
+
+D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h:
 

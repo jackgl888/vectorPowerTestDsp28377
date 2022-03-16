@@ -1,4 +1,4 @@
-#include "ss_pwm.h"
+#include "ss_include.h"
 
 
 
@@ -6,10 +6,10 @@
  *******************************************************************************
  *	函数:	void  epwmsInit(void)
  *	描述:	pwm初始化
- *	输入:	
+ *	输入:
  *	返回:	无
  *	作者:zwe
- *	版本:	
+ *	版本:
  *******************************************************************************
  */
 
@@ -39,19 +39,22 @@ void  epwmsInit(void)
 //配置比较方式预设模块(AQ)
     EPwm1Regs.AQCTLA.bit.CAU        = AQ_CLEAR;         // CTR = CAU时,PWM1A输出低
     EPwm1Regs.AQCTLA.bit.PRD        = AQ_CLEAR;         // CTR = PRD时,PWM1A输出低
-    EPwm1Regs.AQCTLA.bit.CAD        = AQ_SET;           // CTR = CAD时,PWM1A输出高
+   EPwm1Regs.AQCTLA.bit.CAD        = AQ_SET;           // CTR = CAD时,PWM1A输出高
+
 
     EPwm1Regs.AQCTLB.bit.CAU        = AQ_CLEAR;         // CTR = CAU时,PWM1B输出低
-    EPwm1Regs.AQCTLB.bit.CAD        = AQ_SET;           // CTR = CAD时,PWM1B输出高
-    EPwm1Regs.AQCTLB.bit.PRD        = AQ_SET;           // CTR = ZRO时,PWM1B输出高
+   EPwm1Regs.AQCTLB.bit.CAD        = AQ_SET;           // CTR = CAD时,PWM1B输出高
+   EPwm1Regs.AQCTLB.bit.PRD        = AQ_SET;           // CTR = ZRO时,PWM1B输出高
+ 
+
 
 
 //配置计数器比较模块(CC)
-    EPwm1Regs.CMPA.bit.CMPA        = SP/3;                //设置占空比CMPx/TBPRD
-    EPwm1Regs.CMPB.all                  = 0;                //设置占空比CMPx/TBPRD
+    EPwm1Regs.CMPA.bit.CMPA         = SP/3;                //设置占空比CMPx/TBPRD
+    EPwm1Regs.CMPB.all              = 0;                //设置占空比CMPx/TBPRD
 //配置死区模块(DB)
     EPwm1Regs.DBCTL.bit.IN_MODE     = DBA_ALL;          //ePWMA作为上升沿信号，ePWMA作为下降沿信号
-    EPwm1Regs.DBCTL.bit.OUT_MODE    = DB_FULL_ENABLE;   //使能死区模块;
+    EPwm1Regs.DBCTL.bit.OUT_MODE    = DB_FULL_ENABLE;   //使能死区模块;DB_DISABLE
     EPwm1Regs.DBCTL.bit.POLSEL      = DB_ACTV_HIC;      //对称互补
     EPwm1Regs.DBRED.bit.DBRED       = DBTIME_RED;       //上升沿死区时间
     EPwm1Regs.DBFED.bit.DBFED       = DBTIME_FED;       //下降沿死区时间
@@ -61,35 +64,37 @@ void  epwmsInit(void)
 
     DELAY_US(10);
 
-//配置高分辨PWM(HrPWM)
+//配置ADC触发
     EALLOW;
     EPwm1Regs.ETSEL.bit.SOCAEN              = 1;            // 使能SOCA触发ADC转换
-    EPwm1Regs.ETSEL.bit.SOCASEL             = 4;//ET_CTR_ZERO;  // CTR=ZERO触发
-    EPwm1Regs.ETPS.bit.SOCAPRD              = 1;//ET_1ST;       // 每n次事件触发一次转换
+    EPwm1Regs.ETSEL.bit.SOCASEL             =  ET_CTR_PRDZERO ;            //ET_CTR_ZERO;  // CTR=ZERO触发               4
+    EPwm1Regs.ETPS.bit.SOCAPRD              = ET_1ST;            //ET_1ST;       // 每n次事件触发一次转换              1
 	DELAY_US(10);
-
+        EDIS;
+  //  配置高分辨PWM(HrPWM)
     EPwm1Regs.HRCNFG.all            = 0x00;             //复位HRCNFG
     EPwm1Regs.HRCNFG.bit.EDGMODE    = HR_FEP;           //MEP control on Rising edge
     EPwm1Regs.HRCNFG.bit.CTLMODE    = HR_CMP;           //
     EPwm1Regs.HRCNFG.bit.HRLOAD     = HR_CTR_ZERO;      //CTR = ZERO加载
     EDIS;
-//            
-	EPwm1Regs.CMPA.bit.CMPAHR = 0.2;	
+//
 
-	EPwm1Regs.TBCTL.all=0x0010+TBCTLVAL;			// Enable Timer
+
+	 EPwm1Regs.TBCTL.all=0x0010+TBCTLVAL;			// Enable Timer
 
     DELAY_US(10);
 
 		//配置中断模块(ET)
-		//	  EPwm1Regs.ETSEL.bit.INTSEL  = ET_CTR_PRD; 	//配置中断触发信号
-		//	  EPwm1Regs.ETSEL.bit.INTEN   = 0;				//使能中断位 1:使能，0:不使能
-		//	  EPwm1Regs.ETPS.bit.INTPRD   = ET_2ND; 		//中断频率 = fPWM / 2
-		//	  EPwm1Regs.ETCLR.bit.INT	  = 1;				//清除中断标志位
-		//
-		//	  IER |= M_INT3;		  // 使能PIE 的INT3
-		//
-		//	  PieCtrlRegs.PIECTRL.bit.ENPIE   = 1;	  //使能PIE block
-		//	  PieCtrlRegs.PIEIER3.bit.INTx1   = 1;	  //使能INT3.1
+	  EPwm1Regs.ETSEL.bit.INTSEL  = ET_CTR_PRD; 	//配置中断触发信号
+	  EPwm1Regs.ETSEL.bit.INTEN   = 0;				//使能中断位 1:使能，0:不使能
+	  EPwm1Regs.ETPS.bit.INTPRD   = ET_2ND; 		//中断频率 = fPWM / 2
+	  EPwm1Regs.ETCLR.bit.INT	  = 1;				//清除中断标志位
+
+	  IER |= M_INT3;		  // 使能PIE 的INT3
+
+	  PieCtrlRegs.PIECTRL.bit.ENPIE   = 1;	  //使能PIE block
+	  PieCtrlRegs.PIEIER3.bit.INTx1   = 1;	  //使能INT3.1
+			  
 #endif
 
  
@@ -102,8 +107,8 @@ void  epwmsInit(void)
  *  描述:   soft     forces  a single event  to be triggred  , and pwm output low;
  *  输入: EPwmRegs:  EPwm1Regs、EPwm2Regs ...
  *  返回: 无
- *  作者: 
- *  版本: 
+ *  作者:
+ *  版本:
  ********************************************************************************/
 void dr_EpwmsSrcTZ(volatile struct EPWM_REGS *EPwmRegs)
 {
@@ -117,7 +122,7 @@ void dr_EpwmsSrcTZ(volatile struct EPWM_REGS *EPwmRegs)
  *  描述:clear erorr flags
  *  输入: EPwmRegs:   EPwm1Regs、EPwm2Regs ...
  *  返回: 无
- *  作者: 
+ *  作者:
  *  版本:
  ******************************************************************************* */
 void dr_EpwmsClrTZ(volatile struct EPWM_REGS *EPwmRegs)
@@ -127,27 +132,150 @@ void dr_EpwmsClrTZ(volatile struct EPWM_REGS *EPwmRegs)
     EDIS;
 }
 
+
+/* *******************************************************************************
+ *  函数:float splitFloat (float  dutyCycle)
+ *  描述:  分离出一个数的小数部分
+ *  输入: dutycyle   计算出的占空比
+ *  返回: 分离后的小数部分
+ *  作者:
+ *  版本:
+ ******************************************************************************* */
+float splitFloat (float  dutyCycle)
+{
+      Uint16   interPart;
+	  float32    floatPart;
+	  interPart = (Uint16)dutyCycle;
+	  floatPart = dutyCycle - interPart;
+	  return floatPart;
+}
+
+
+
 /* *******************************************************************************
  *	函数: void ePWM1_update(float32 DutyA,float32 DutyB)
  *	描述:  update  PWM1  dutycycle
- *	输入: PWM_DUTY_CMP:   dutycycle value 
- *	返回: 
- *	作者: 
+ *	输入: PWM_DUTY_CMP:   dutycycle value
+ *	返回:
+ *	作者:
  *	版本:
  ******************************************************************************* */
+
 void dr_Epwm1Upate(int32 PWM_DUTY_CMP)
 {
-
-    static int32 m_cmp = 0;
-
-    if(PWM_DUTY_CMP > DUTYCYCLEMAX )//限幅
+    float32 val;
+    if(PWM_DUTY_CMP > DUTYCYCLEMAX )//限幅  一个月
     {
         PWM_DUTY_CMP = DUTYCYCLEMAX ;
     }
+  //  if( abs(PWM_DUTY_CMP - ssSystem.pwmPara.cmpValue   ) > 2 )ssSystem.pwmPara.cmpValue = PWM_DUTY_CMP;//去抖
+    
+           val = (float32)((float32)EPwm1Regs.TBPRD-PWM_DUTY_CMP)/(float32)EPwm1Regs.TBPRD;
 
-    if( abs(PWM_DUTY_CMP - m_cmp) > 2 )m_cmp = PWM_DUTY_CMP;//去抖
+       if(ssSystem.fuction.bit.CC ==1)
+       	{
+      
+       	   EPwm1Regs.CMPA.bit.CMPA	=   (Uint16)(EPwm1Regs.TBPRD-PWM_DUTY_CMP );
+		   EPwm1Regs.CMPA.bit.CMPAHR  = (Uint16)( splitFloat(val*100 )*MEP_SCALE_FACTOR )<<8;
+		   
+       	}
+	
+	         else if(ssSystem.fuction.bit.CV ==1)
+	   	EPwm1Regs.CMPA.bit.CMPA	= ssSystem.pwmPara.cmpValue;
+	//EPwm1Regs.CMPA.bit.CMPAHR  =   ssSystem.pwmPara.cmpValueLi;
+	
+}
 
-	EPwm1Regs.CMPA.bit.CMPA	= (Uint16)(m_cmp / 93);
-	EPwm1Regs.CMPA.bit.CMPAHR  = (Uint16)(m_cmp % 93)<<8;
+
+
+/* *******************************************************************************
+ *	函数: void swicthToDischargeMode(void)
+ *	描述:  切换到放电模式
+ *	输入: PWM_DUTY_CMP:   dutycycle value
+ *	返回:
+ *	作者:
+ *	版本:
+ ******************************************************************************* */
+void swicthToDischargeMode(void)
+{
+		   EPwm1Regs.AQCTLA.bit.CAU 	   =AQ_CLEAR;		   // CTR = CAU时,PWM1A输出低
+	    EPwm1Regs.AQCTLA.bit.PRD		 = AQ_CLEAR;		 // CTR = PRD时,PWM1A输出低
+	   	 EPwm1Regs.AQCTLA.bit.CAD		 = AQ_CLEAR;		   // CTR = CAD时,PWM1A输出高
+	   
+		   EPwm1Regs.AQCTLB.bit.CAU 	   = AQ_CLEAR;		   // CTR = CAU时,PWM1B输出低
+		   EPwm1Regs.AQCTLB.bit.CAD		 = AQ_SET;			 // CTR = CAD时,PWM1B输出高
+		   EPwm1Regs.AQCTLB.bit.PRD		 = AQ_CLEAR;			 // CTR = ZRO时,PWM1B输出高
+	
+
+       EPwm1Regs.DBCTL.bit.OUT_MODE    = DB_DISABLE ;
+}
+
+
+
+/* *******************************************************************************
+ *	函数: void swicthTChargeMode(void)
+ *	描述:
+ *	输入: PWM_DUTY_CMP:   dutycycle value
+ *	返回:
+ *	作者:
+ *	版本:
+ ******************************************************************************* */
+void swicthToChargeMode(void)
+{
+
+      EPwm1Regs.AQCTLA.bit.CAU        = AQ_CLEAR;         // CTR = CAU时,PWM1A输出低
+    EPwm1Regs.AQCTLA.bit.PRD        = AQ_CLEAR;         // CTR = PRD时,PWM1A输出低
+   EPwm1Regs.AQCTLA.bit.CAD        = AQ_SET;           // CTR = CAD时,PWM1A输出高
+
+
+    EPwm1Regs.AQCTLB.bit.CAU        = AQ_CLEAR;         // CTR = CAU时,PWM1B输出低
+    EPwm1Regs.AQCTLB.bit.CAD        = AQ_CLEAR;           // CTR = CAD时,PWM1B输出高
+    EPwm1Regs.AQCTLB.bit.PRD        = AQ_CLEAR;           // CTR = ZRO时,PWM1B输出高
+    EPwm1Regs.DBCTL.bit.OUT_MODE    = DB_DISABLE ;
+    
+}
+
+/* *******************************************************************************
+ *	函数: void swicthTChargeMode(void)
+ *	描述:同步模式
+ *	输入: PWM_DUTY_CMP:   dutycycle value
+ *	返回:
+ *	作者:
+ *	版本:
+ ******************************************************************************* */
+void swicthToSyncMode(void)
+{
+      EPwm1Regs.AQCTLA.bit.CAU        = AQ_CLEAR;         // CTR = CAU时,PWM1A输出低
+    EPwm1Regs.AQCTLA.bit.PRD        = AQ_CLEAR;         // CTR = PRD时,PWM1A输出低
+   EPwm1Regs.AQCTLA.bit.CAD        = AQ_SET;           // CTR = CAD时,PWM1A输出高
+
+
+    EPwm1Regs.AQCTLB.bit.CAU        = AQ_CLEAR;         // CTR = CAU时,PWM1B输出低
+   EPwm1Regs.AQCTLB.bit.CAD        = AQ_SET;           // CTR = CAD时,PWM1B输出高
+   EPwm1Regs.AQCTLB.bit.PRD        = AQ_SET;           // CTR = ZRO时,PWM1B输出高
+
+       EPwm1Regs.DBCTL.bit.OUT_MODE    = DB_FULL_ENABLE;   //使能死区模块;DB_DISABLE
+}
+
+/* *******************************************************************************
+ *	函数: void swicthTChargeMode(void)
+ *	描述:同步模式
+ *	输入: PWM_DUTY_CMP:   dutycycle value
+ *	返回:
+ *	作者:
+ *	版本:
+ ******************************************************************************* */
+void  forcePwmOutputLow(void)
+{
+    EPwm1Regs.AQCTLA.bit.CAU        = AQ_CLEAR;         // CTR = CAU时,PWM1A输出低
+      EPwm1Regs.AQCTLA.bit.PRD        = AQ_CLEAR;         // CTR = PRD时,PWM1A输出低
+     EPwm1Regs.AQCTLA.bit.CAD        =  AQ_CLEAR;           // CTR = CAD时,PWM1A输出高
+
+
+      EPwm1Regs.AQCTLB.bit.CAU        = AQ_CLEAR;         // CTR = CAU时,PWM1B输出低
+      EPwm1Regs.AQCTLB.bit.CAD        = AQ_CLEAR;           // CTR = CAD时,PWM1B输出高
+      EPwm1Regs.AQCTLB.bit.PRD        = AQ_CLEAR;           // CTR = ZRO时,PWM1B输出高
+      EPwm1Regs.DBCTL.bit.OUT_MODE    = DB_DISABLE ;
+
 }
 

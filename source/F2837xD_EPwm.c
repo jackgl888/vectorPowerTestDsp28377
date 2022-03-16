@@ -49,6 +49,7 @@ void InitEPwm1Gpio(void)
     // Pull-ups can be enabled or disabled by the user.
     // Comment out other unwanted lines.
     //
+
     GpioCtrlRegs.GPAPUD.bit.GPIO0 = 1;    // Disable pull-up on GPIO0 (EPWM1A)
     GpioCtrlRegs.GPAPUD.bit.GPIO1 = 1;    // Disable pull-up on GPIO1 (EPWM1B)
     // GpioCtrlRegs.GPEPUD.bit.GPIO145 = 1;    // Disable pull-up on GPIO145 (EPWM1A)

@@ -13,17 +13,31 @@
 
 #include "F2837xD_device.h"       // F2837xD Header File Include File
 #include "F2837xD_Examples.h"     // F2837xD Examples Include File
-
+#include "ss_include.h"
 //---------------------------------------------------------------------------
 // CPU Timer 1 Interrupt
 interrupt void TIMER1_ISR(void)
 {
     // Insert ISR Code here
+	   Uint16 i; 
+		   
+	   //锟斤拷锟斤拷锟绞憋拷锟絤s 锟捷硷拷锟斤拷锟斤拷
+		 for(i=0;i<SWT_COUNT;i++)
+		 {
+			 if(ssSystem.swTimer[i].counter)
+			 {
+				 ssSystem.swTimer[i].counter--;  
+			 }
+		 }
+
+
+
+
 
     // Next two lines for debug only to halt the processor here
     // Remove after inserting ISR Code
-    asm ("      ESTOP0");
-    for(;;);
+//    asm ("      ESTOP0");
+//    for(;;);
 }
 
 // CPU Timer 2 Interrupt
@@ -31,10 +45,11 @@ interrupt void TIMER2_ISR(void)
 {
     // Insert ISR Code here
 
+
     // Next two lines for debug only to halt the processor here
     // Remove after inserting ISR Code
-    asm ("      ESTOP0");
-    for(;;);
+   asm ("      ESTOP0");
+   for(;;);
 }
 
 // Datalogging Interrupt
@@ -228,15 +243,37 @@ interrupt void USER12_ISR(void)
 interrupt void ADCA1_ISR(void)
 {
     // Insert ISR Code here
+    //GetConvertedValueOfAdc();
 
+    static Uint16 index =0;
+
+         if(AdcaRegs.ADCINTFLG.bit.ADCINT1 == 1)
+         {
+            static Uint16 index =0;
+
+            ssSystem.dspAdc.adcValue[OUT_CUR][index] =AdcaResultRegs.ADCRESULT0 ;
+            ssSystem.dspAdc.adcValue[BAT_VOL][index] =AdcaResultRegs.ADCRESULT1;
+            ssSystem.dspAdc.adcValue[PORT_VOL][index] =AdcaResultRegs.ADCRESULT2;
+
+
+            if(ADCVAL_BUFFER_SIZE <= index)
+            {
+               index =0;
+               ssSystem.dspAdc.bufferFull = 1;
+            }
+            index++;
+            AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; //clear INT1 flag
+
+            PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+         }
     // To receive more interrupts from this PIE group,
     // acknowledge this interrupt.
     // PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
     // Next two lines for debug only to halt the processor here
     // Remove after inserting ISR Code
-    asm ("      ESTOP0");
-    for(;;);
+//    asm ("      ESTOP0");
+//    for(;;);
 }
 
 // 1.2 - ADCB Interrupt 1
@@ -318,6 +355,16 @@ interrupt void ADCD1_ISR(void)
 interrupt void TIMER0_ISR(void)
 {
     // Insert ISR Code here
+		  /*5ms锟斤拷锟斤拷一锟斤拷pi*/
+	  buckBoostCmcCtrl();
+	
+	 // CpuTimer0.InterruptCount++;
+	
+	  // Acknowledge this interrupt to receive more interrupts from group 1
+	  PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
+	
+	//	GpioDataRegs.GPATOGGLE.bit.GPIO4 = 1;
+	//	GpioDataRegs.GPATOGGLE.bit.GPIO5 = 1;
 
     // To receive more interrupts from this PIE group,
     // acknowledge this interrupt.
@@ -325,8 +372,8 @@ interrupt void TIMER0_ISR(void)
 
     // Next two lines for debug only to halt the processor here
     // Remove after inserting ISR Code
-    asm ("      ESTOP0");
-    for(;;);
+  // asm ("      ESTOP0");
+   // for(;;);
 }
 
 // 1.8 - Standby and Halt Wakeup Interrupt

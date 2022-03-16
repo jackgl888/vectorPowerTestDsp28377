@@ -5,24 +5,24 @@
 
 typedef struct  {
 
-    int32 T;          //cycle
-    int32 Kp;         //pid   scale
-    int32 Ti;         //pid     intergral
+    float32  T;          //cycle
+    float32 Kp;         //pid   scale
+    float32 Ti;         //pid     intergral
     
-    int32 Ref;        //standard value
-    int32 Fdb;        // feedback value
+    float32 Ref;        //standard value
+    float32 Fdb;        // feedback value
 
-    int32 a0;         //cal :   a0 = Kp(1 + T/Ti)
-    int32 a1;         //cal:    a1 = Kp
+    float32 a0;         //cal :   a0 = Kp(1 + T/Ti)
+    float32 a1;         //cal:    a1 = Kp
 
-    int32 Ek_0;       // cal : Error[k],  error current 
-    int32 Ek_1;       //cal :Error[k-1]
+    float32 Ek_0;       // cal : Error[k],  error current 
+    float32 Ek_1;       //cal :Error[k-1]
 
-    int32 Inc;        //increment           pi[k] -pi[k-1]
-    int32 Output;     //pi output 
+    float32 Inc;        //increment           pi[k] -pi[k-1]
+    float32 Output;     //pi output 
 
-    int32 OutMax;     //PImaxvalue 
-    int32 OutMin;     //PIminvalue 
+    float32 OutMax;     //PImaxvalue 
+    float32 OutMin;     //PIminvalue 
 
 }PI_STRUCT;
 

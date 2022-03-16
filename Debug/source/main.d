@@ -72,10 +72,10 @@ source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_pid.h
 source/main.obj: D:/workspace_v11/Lab20_EPWM/include/IQmathLib.h
 source/main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/limits.h
 source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_filter.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_include.h
 source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_rs485.h
 source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_buckboost.h
+source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_tp.h
+source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h
 
 ../source/main.c:
 
@@ -221,11 +221,11 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/limits.h:
 
 D:/workspace_v11/Lab20_EPWM/include/inc/ss_filter.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h:
-
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_include.h:
-
 D:/workspace_v11/Lab20_EPWM/include/inc/ss_rs485.h:
 
 D:/workspace_v11/Lab20_EPWM/include/inc/ss_buckboost.h:
+
+D:/workspace_v11/Lab20_EPWM/include/inc/ss_tp.h:
+
+D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h:
 

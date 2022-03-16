@@ -759,6 +759,7 @@ extern    float _IQ1toF(long A);
 #define   _IQ1toIQ(A)   ((long) (A) << (GLOBAL_Q - 1))
 //---------------------------------------------------------------------------
 #define   _IQmpy(A,B)    __IQmpy(A,B,GLOBAL_Q)
+//#define   _IQmpy(A,B)    __IQmpy(A,B)
 #define   _IQ30mpy(A,B)  __IQmpy(A,B,30)
 #define   _IQ29mpy(A,B)  __IQmpy(A,B,29)
 #define   _IQ28mpy(A,B)  __IQmpy(A,B,28)

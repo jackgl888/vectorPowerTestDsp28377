@@ -1,7 +1,7 @@
 # FIXED
 
 include/inc/ss_rs485.obj: ../include/inc/ss_rs485.c
-include/inc/ss_rs485.obj: ../include/inc/ss_rs485.h
+include/inc/ss_rs485.obj: ../include/inc/ss_include.h
 include/inc/ss_rs485.obj: D:/workspace_v11/Lab20_EPWM/include/F28x_Project.h
 include/inc/ss_rs485.obj: D:/workspace_v11/Lab20_EPWM/include/F2837xD_Cla_typedefs.h
 include/inc/ss_rs485.obj: D:/workspace_v11/Lab20_EPWM/include/F2837xD_device.h
@@ -65,7 +65,6 @@ include/inc/ss_rs485.obj: D:/workspace_v11/Lab20_EPWM/include/F2837xD_Dma_define
 include/inc/ss_rs485.obj: D:/workspace_v11/Lab20_EPWM/include/F2837xD_SysCtrl_defines.h
 include/inc/ss_rs485.obj: D:/workspace_v11/Lab20_EPWM/include/F2837xD_Upp_defines.h
 include/inc/ss_rs485.obj: D:/workspace_v11/Lab20_EPWM/include/F2837xD_defaultisr.h
-include/inc/ss_rs485.obj: ../include/inc/ss_include.h
 include/inc/ss_rs485.obj: ../include/inc/ss_timer.h
 include/inc/ss_rs485.obj: ../include/inc/ss_pwm.h
 include/inc/ss_rs485.obj: ../include/inc/ss_dspadc.h
@@ -73,14 +72,13 @@ include/inc/ss_rs485.obj: ../include/inc/ss_pid.h
 include/inc/ss_rs485.obj: D:/workspace_v11/Lab20_EPWM/include/IQmathLib.h
 include/inc/ss_rs485.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/limits.h
 include/inc/ss_rs485.obj: ../include/inc/ss_filter.h
-include/inc/ss_rs485.obj: ../include/inc/ss_system.h
-include/inc/ss_rs485.obj: ../include/inc/ss_include.h
 include/inc/ss_rs485.obj: ../include/inc/ss_rs485.h
 include/inc/ss_rs485.obj: ../include/inc/ss_buckboost.h
+include/inc/ss_rs485.obj: ../include/inc/ss_system.h
 
 ../include/inc/ss_rs485.c:
 
-../include/inc/ss_rs485.h:
+../include/inc/ss_include.h:
 
 D:/workspace_v11/Lab20_EPWM/include/F28x_Project.h:
 
@@ -208,8 +206,6 @@ D:/workspace_v11/Lab20_EPWM/include/F2837xD_Upp_defines.h:
 
 D:/workspace_v11/Lab20_EPWM/include/F2837xD_defaultisr.h:
 
-../include/inc/ss_include.h:
-
 ../include/inc/ss_timer.h:
 
 ../include/inc/ss_pwm.h:
@@ -224,11 +220,9 @@ C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/limits.h:
 
 ../include/inc/ss_filter.h:
 
-../include/inc/ss_system.h:
-
-../include/inc/ss_include.h:
-
 ../include/inc/ss_rs485.h:
 
 ../include/inc/ss_buckboost.h:
+
+../include/inc/ss_system.h:
 

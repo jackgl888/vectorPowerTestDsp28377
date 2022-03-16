@@ -11,10 +11,11 @@
 #include "ss_dspadc.h"
 #include "ss_pid.h"
 #include "ss_filter.h"
-#include "ss_system.h"
 #include "ss_rs485.h"
 #include "ss_buckboost.h"
-
+#include "ss_tp.h"
+#include "ss_system.h"
+#include "IQmathLib.h"
 #endif 
 
 

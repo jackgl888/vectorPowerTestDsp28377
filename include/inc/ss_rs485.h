@@ -3,7 +3,7 @@
 
 #include "F28x_Project.h"
 
-#include "ss_include.h"
+
 
 #define   BAUDRATE     9600
 
