@@ -124,8 +124,8 @@ void dspSystemInit(void)
 	   PieCtrlRegs.PIEIER1.bit.INTx1 = 1;  //ADC
 	   PieCtrlRegs.PIEIER1.bit.INTx7 = 1;  //TIMER0
        PieCtrlRegs.PIEIER8.bit.INTx5= 1;     // SCIC
-        PieVectTable.EPWM1_TZ_INT =    &epwm1_tzint_isr;
-	    PieCtrlRegs.PIEIER2.bit.INTx1 = 1;   
+     //   PieVectTable.EPWM1_TZ_INT =    &epwm1_tzint_isr;
+	  //  PieCtrlRegs.PIEIER2.bit.INTx1 = 1;
 	   EALLOW;
 	   CpuSysRegs.PCLKCR0.bit.TBCLKSYNC = 1;
 	
