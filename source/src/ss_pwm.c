@@ -272,6 +272,8 @@ void swicthToSyncMode(void)
    EPwm1Regs.AQCTLB.bit.PRD        = AQ_SET;           // CTR = ZRO�?PWM1B输出�?
 
        EPwm1Regs.DBCTL.bit.OUT_MODE    = DB_FULL_ENABLE;   //使能死区模块;DB_DISABLE
+
+
 }
 
 /* *******************************************************************************

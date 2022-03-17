@@ -36,7 +36,8 @@ void main(void)
 		   	}
 		    else if((ssSystem.fuction.bit.RDY == 2) && (flag == 1))
 		   	{
-		    	swicthToSyncMode();
+		   	   EPwm1Regs.TZCLR.bit.OST=1;
+		        EPwm1Regs.CMPA.bit.CMPA = 50;
 			    flag =0;
 		   	}
 
@@ -48,10 +49,12 @@ void main(void)
 			 //  dr_EpwmsSrcTZ(&EPwm1Regs);//���ǿ��PWM1����͵��?	}
 			/*�õ�ADCת����ֵ*/
 	           GetConvertedValueOfAdc();  
+
+				}
            #endif
 
 	//    	//
-	//        EPwm1Regs.ETSEL.bit.SOCAEN = 1;  //浣胯�?SOCA
+	//        EPwm1Regs.ETSEL.bit.SOCAEN = 1;  //浣胯�?SOCA
 	//        EPwm1Regs.TBCTL.bit.CTRMODE = 0; //unfreeze, and enter up count mode
 	//
 	//    	//wait while ePWM causes ADC conversions, which then cause interrupts,
@@ -66,7 +69,7 @@ void main(void)
             ;
 	     }
 
-    }
+  
 
 }
 

@@ -20,16 +20,16 @@ void buckBoostCtrlInit(void)
 		ssSystem.volPiOut.T		 = (2.50f);//PID��������Ϊ2.5ms
 		ssSystem.volPiOut.Kp 	 = (0.04f);
 		ssSystem.volPiOut.Ti 	 = (4.50f);
-		ssSystem.volPiOut.OutMin  = (-0.05f * DP_CURRENT_OUT_MAX*50); //鏈�灏忕數娴侀檺鍒�?
-		ssSystem.volPiOut.OutMax  = (+1.00f * DP_CURRENT_OUT_MAX*50); //鏈�澶х數娴侀檺鍒�?
+		ssSystem.volPiOut.OutMin  = (-0.05f * DP_CURRENT_OUT_MAX*50); //鏈�灏忕數娴侀檺鍒�?
+		ssSystem.volPiOut.OutMax  = (+1.00f * DP_CURRENT_OUT_MAX*50); //鏈�澶х數娴侀檺鍒�?
 		ssSystem.piFunc.init(&ssSystem.volPiOut);
 	
 		ssSystem.piFunc.reset(&ssSystem.curPiOut);
 		ssSystem.curPiOut.T		 = (2.50f);//PID鎺у埗鍛ㄦ湡锛屽崟浣�100us
 		ssSystem.curPiOut.Kp 	 = (2.15f);
 		ssSystem.curPiOut.Ti 	 = (0.85f);
-		ssSystem.curPiOut.OutMin  = (DUTYCYCLEMIN );//鏈�灏忓崰绌烘瘮闄愬�?鍏朵�?3涓篽rpwm缁嗗垎涓暟
-		ssSystem.curPiOut.OutMax  = (DUTYCYCLEMAX);//鏈�澶у崰绌烘瘮闄愬埗,鍏朵�?3涓篽rpwm缁嗗垎涓暟
+		ssSystem.curPiOut.OutMin  = (DUTYCYCLEMIN );//鏈�灏忓崰绌烘瘮闄愬�?鍏朵�?3涓篽rpwm缁嗗垎涓暟
+		ssSystem.curPiOut.OutMax  = (DUTYCYCLEMAX);//鏈�澶у崰绌烘瘮闄愬埗,鍏朵�?3涓篽rpwm缁嗗垎涓暟
 		ssSystem.piFunc.init(&ssSystem.curPiOut);
 	
 	    ssSystem.baseCmd.VoRefSet = DEFAULTVOLOUT ;
@@ -86,6 +86,8 @@ void buckBoostCmcCtrl(void)
 	// m_PwmDuty = ssSystem.pwmPara.calDuty = 0;
 	  if( ssSystem.fuction.bit.RUN ==1)
 	  	{
+	  	/*for ost  TZ*/
+	  //	  EPwm1Regs.TZFRC.bit.OST =1;
 	  	   ssSystem.fuction.bit.RUN =0;
 		   if(ssSystem.fuction.bit.CV ==1)
 	  	   pi_init(&ssSystem.volPiOut);
@@ -96,6 +98,8 @@ void buckBoostCmcCtrl(void)
       /*change */
        if( ssSystem.fuction.bit.EN ==1)
        	{
+       	           /*clear ost flag */
+       	    // 	  EPwm1Regs.TZCLR.bit.OST = 1;
            if(m_PwmDuty %2 == 0)
 				 CHARGE_SWITCH_ON()  ;
 		else
@@ -128,14 +132,14 @@ void buckBoostCmcCtrl(void)
             {
 //                    ssSystem.curPiOut.Ref =   ssSystem.volPiOut.Output > ssSystem.baseCmd.IoRefSet ? ssSystem.baseCmd.IoRefSet : ssSystem.volPiOut.Output;
 //                    ssSystem.curPiOut.Fdb =   ssSystem.outCurInfo.Value;
-//                    ssSystem.piFunc.calc( &ssSystem.curPiOut);  //鐢垫祦鐜疨ID璁＄�?
+//                    ssSystem.piFunc.calc( &ssSystem.curPiOut);  //鐢垫祦鐜疨ID璁＄�?
 
 					  ssSystem.curPiOut.Ref =	 ssSystem.baseCmd.IoRefSet ;
 					  ssSystem.curPiOut.Fdb =	ssSystem.outCurInfo.Value;
-					  ssSystem.piFunc.calc( &ssSystem.curPiOut);               //鐢垫祦鐜疨ID璁＄�?
+					  ssSystem.piFunc.calc( &ssSystem.curPiOut);               //鐢垫祦鐜疨ID璁＄�?
 
             }
-       //   ssSystem.pwmPara.calDuty  = ((int64)ssSystem.curPiOut.Output*70 + (int64)ssSystem.pwmPara.calDuty *30)/100;//涓�闃舵护娉紝70 + 30 = 100;绛夋�?.7 + 0.3 = 1
+       //   ssSystem.pwmPara.calDuty  = ((int64)ssSystem.curPiOut.Output*70 + (int64)ssSystem.pwmPara.calDuty *30)/100;//涓�闃舵护娉紝70 + 30 = 100;绛夋�?.7 + 0.3 = 1
         break;
     }//switch(..)
    m_LoopCnt  = ++m_LoopCnt >= 4 ? 0 : m_LoopCnt;  //鐜矾鎺у埗璁℃暟
@@ -164,7 +168,7 @@ void buckBoostCmcCtrl(void)
 
 
 
-  //  dr_EpwmsClrTZ( &EPwm1Regs);//娓呴櫎PWM寮哄�?鎭㈠PWM姝ｅ父杈撳嚭
+  //  dr_EpwmsClrTZ( &EPwm1Regs);//娓呴櫎PWM寮哄�?鎭㈠PWM姝ｅ父杈撳嚭
 
 
  
