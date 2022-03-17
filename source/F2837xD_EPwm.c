@@ -48,13 +48,24 @@ void InitEPwm1Gpio(void)
     // for reduced power consumption
     // Pull-ups can be enabled or disabled by the user.
     // Comment out other unwanted lines.
-    //
+//		GpioCtrlRegs.GPAMUX1.bit.GPIO4= 1;
+//	//GPIO_SetupPinMux(4, GPIO_MUX_CPU1, 0);
+//
+//		GpioCtrlRegs.GPADIR.bit.GPIO4 = 0;
+//    //
+//	GpioCtrlRegs.GPAPUD.bit.GPIO4 = 0;    // Enable pull-up on GPIO12 (TZ1)
+//
+//	GpioCtrlRegs.GPAQSEL1.bit.GPIO4 = 3;  // Asynch input GPIO12 (TZ1)
+//
+//
+//	InputXbarRegs.INPUT1SELECT = 4;
+//	
 
     GpioCtrlRegs.GPAPUD.bit.GPIO0 = 1;    // Disable pull-up on GPIO0 (EPWM1A)
     GpioCtrlRegs.GPAPUD.bit.GPIO1 = 1;    // Disable pull-up on GPIO1 (EPWM1B)
     // GpioCtrlRegs.GPEPUD.bit.GPIO145 = 1;    // Disable pull-up on GPIO145 (EPWM1A)
     // GpioCtrlRegs.GPEPUD.bit.GPIO146 = 1;    // Disable pull-up on GPIO146 (EPWM1B)
-
+    
     //
     // Configure EPWM-1 pins using GPIO regs
     // This specifies which of the possible GPIO pins will be EPWM1 functional

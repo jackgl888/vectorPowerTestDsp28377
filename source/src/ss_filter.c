@@ -83,7 +83,7 @@ void filterAdcChannels(void)
 			          // singleChannelValBuf[count]=  ssSystem.dspAdc.adcValue[i][count];
 					}
 					/*ÅÅÐò*/
-					arrayBubbleSorting(  singleChannelValBuf, ARRAY_FILTER_SIZE );
+					arrayBubbleSorting(  ssSystem.adcFilter.singleChannelVal, ARRAY_FILTER_SIZE );
                     /*¾ùÖµ*/
 					for(count=ARRAY_STARTING_POS ; count< ARRAY_ENDING_POS ;count++)  
 					{

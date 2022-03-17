@@ -5,6 +5,7 @@
 
 SS_SYSTEM  ssSystem;
 
+__interrupt void epwm1_tzint_isr(void);
 
 
 
@@ -65,7 +66,7 @@ void  paraInit(void)
        GPIO_Setup();
 	   
       /*ADC��ʼ��*/
-	   adcInit();
+       adcInit();
 
        /*filter init */
 	   filterInit();
@@ -123,8 +124,8 @@ void dspSystemInit(void)
 	   PieCtrlRegs.PIEIER1.bit.INTx1 = 1;  //ADC
 	   PieCtrlRegs.PIEIER1.bit.INTx7 = 1;  //TIMER0
        PieCtrlRegs.PIEIER8.bit.INTx5= 1;     // SCIC
- 
-	
+        PieVectTable.EPWM1_TZ_INT =    &epwm1_tzint_isr;
+	    PieCtrlRegs.PIEIER2.bit.INTx1 = 1;   
 	   EALLOW;
 	   CpuSysRegs.PCLKCR0.bit.TBCLKSYNC = 1;
 	
@@ -136,5 +137,29 @@ void dspSystemInit(void)
 	   EINT;   // Enable Global __interrupt INTM
 	   ERTM;   // Enable Global realtime __interrupt DBGM
 
+}
+
+
+
+__interrupt void 
+epwm1_tzint_isr(void)
+{
+     Uint16 a = 0 ;
+
+	 a++;
+
+    //
+    // Leave these flags set so we only take this
+    // interrupt once
+    //
+    // 	EALLOW;
+    // 	EPwm1Regs.TZCLR.bit.OST = 1;
+    // 	EPwm1Regs.TZCLR.bit.INT = 1;
+    //	EDIS;
+
+    //
+    // Acknowledge this interrupt to receive more interrupts from group 2
+    //
+    PieCtrlRegs.PIEACK.all = PIEACK_GROUP2;
 }
 

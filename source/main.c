@@ -2,8 +2,7 @@
 #include "ss_include.h"
 
 
-interrupt void cpu_timer0_isr(void);
-interrupt void cpu_timer1_isr(void);
+
 
 
 
@@ -21,11 +20,11 @@ void main(void)
    static Uint16 flag = 0;
     /* dsp   init */
 	dspSystemInit();
-	//ssSystem.fuction.bit.RDY = 0;
-	//flag = 1;
+	ssSystem.fuction.bit.RDY = 0;
+	flag = 1;
 	while(1)
 	{
-
+          #if 1
 	       if((ssSystem.fuction.bit.RDY == 1 ) && (flag == 1))
 		   	   swicthToChargeMode();
 		   else if((ssSystem.fuction.bit.RDY == 0) && (flag == 1))
@@ -35,7 +34,7 @@ void main(void)
 				   swicthToSyncMode();
 				flag = 0;
 		   	}
-		   else if((ssSystem.fuction.bit.RDY == 2) && (flag == 1))
+		    else if((ssSystem.fuction.bit.RDY == 2) && (flag == 1))
 		   	{
 		    	swicthToSyncMode();
 			    flag =0;
@@ -43,17 +42,16 @@ void main(void)
 
 			else if((ssSystem.fuction.bit.RDY == 3) && (flag == 1))
 			{
+
 			   flag =0;
 		      forcePwmOutputLow();
-			 //  dr_EpwmsSrcTZ(&EPwm1Regs);//Èí¼þÇ¿ÖÆPWM1Êä³öµÍµçÆ½
-			}
-
+			 //  dr_EpwmsSrcTZ(&EPwm1Regs);//ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½PWM1ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½?	}
 			/*ï¿½Ãµï¿½ADC×ªï¿½ï¿½ï¿½ï¿½Öµ*/
-	        GetConvertedValueOfAdc();  
-
+	           GetConvertedValueOfAdc();  
+           #endif
 
 	//    	//
-	//        EPwm1Regs.ETSEL.bit.SOCAEN = 1;  //æµ£èƒ¯ï¿?SOCA
+	//        EPwm1Regs.ETSEL.bit.SOCAEN = 1;  //æµ£èƒ¯ï¿½?SOCA
 	//        EPwm1Regs.TBCTL.bit.CTRMODE = 0; //unfreeze, and enter up count mode
 	//
 	//    	//wait while ePWM causes ADC conversions, which then cause interrupts,
@@ -65,12 +63,12 @@ void main(void)
 	//    	//stop ePWM
 	//        EPwm1Regs.ETSEL.bit.SOCAEN = 0;  //disable SOCA
 	//       EPwm1Regs.TBCTL.bit.CTRMODE = 3; //freeze counter
-     ;
-	}
+            ;
+	     }
+
+    }
 
 }
-
-
 
 
 
@@ -95,19 +93,6 @@ void main(void)
  ********************************************************************************/
 
 
-interrupt void cpu_timer0_isr(void)
-{
-   /*5msï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½pi*/
-   buckBoostCmcCtrl();
-
-  // CpuTimer0.InterruptCount++;
-
-   // Acknowledge this interrupt to receive more interrupts from group 1
-   PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
-
- //  GpioDataRegs.GPATOGGLE.bit.GPIO4 = 1;
- //  GpioDataRegs.GPATOGGLE.bit.GPIO5 = 1;
-}
 
 
 /*********************************************************************************
@@ -119,19 +104,7 @@ interrupt void cpu_timer0_isr(void)
  ********************************************************************************/
 
 
-interrupt void cpu_timer1_isr(void)
-{
-     Uint16 i; 
-	  
-  //ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ms ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½ï¿½
-	for(i=0;i<SWT_COUNT;i++)
-	{
-		if(ssSystem.swTimer[i].counter)
-		{
-			ssSystem.swTimer[i].counter--;	
-		}
-	}
-}
+
 
 
 

@@ -148,34 +148,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-Lab20_EPWM.out \
+EPWM.out \
 
 EXE_OUTPUTS__QUOTED += \
-"Lab20_EPWM.out" \
+"EPWM.out" \
 
 BIN_OUTPUTS += \
-Lab20_EPWM.hex \
+EPWM.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"Lab20_EPWM.hex" \
+"EPWM.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "Lab20_EPWM.out"
+	@$(MAKE) --no-print-directory -Onone "EPWM.out"
 
 # Tool invocations
-Lab20_EPWM.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+EPWM.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla1 --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 --advice:performance=all --define=CPU1 -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"Lab20_EPWM.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib" -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="Lab20_EPWM_linkInfo.xml" --rom_model -o "Lab20_EPWM.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla1 --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 --advice:performance=all --define=CPU1 -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"EPWM.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib" -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="EPWM_linkInfo.xml" --rom_model -o "EPWM.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-Lab20_EPWM.hex: $(EXE_OUTPUTS)
+EPWM.hex: $(EXE_OUTPUTS)
 	@echo 'Building secondary target: "$@"'
 	@echo 'Invoking: C2000 Hex Utility'
-	"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/hex2000" --diag_wrap=off -o "Lab20_EPWM.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/hex2000" --diag_wrap=off -o "EPWM.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building secondary target: "$@"'
 	@echo ' '
 
