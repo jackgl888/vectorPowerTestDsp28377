@@ -4,23 +4,27 @@
 #include "F28x_Project.h"
 
 
-/*通信状态结构体*/
+/*閫氫俊鐘舵�佺粨鏋勪綋*/
 typedef struct 
 {
  
-	Uint16 comOfflineCnt;	//累加设为通讯异常
+	Uint16 comOfflineCnt;	//绱姞璁句负閫氳寮傚父
 
 	Uint16 commStatus;
 
-	Uint16 commOffLine;   //离线标志
+	Uint16 commOffLine;   //绂荤嚎鏍囧織
 
-	Uint16 commErr;   //离线标志
+	Uint16 commErr;   //绂荤嚎鏍囧織
   
 }MCLC_COMMUNICATION;
 
 
-/**/
+
+#endif
 
 
 
-#endif 
+
+
+
+

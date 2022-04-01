@@ -1,7 +1,7 @@
 # FIXED
 
 source/main.obj: ../source/main.c
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_include.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_minclude.h
 source/main.obj: D:/workspace_v11/EPWM/include/F28x_Project.h
 source/main.obj: D:/workspace_v11/EPWM/include/F2837xD_Cla_typedefs.h
 source/main.obj: D:/workspace_v11/EPWM/include/F2837xD_device.h
@@ -65,21 +65,23 @@ source/main.obj: D:/workspace_v11/EPWM/include/F2837xD_Dma_defines.h
 source/main.obj: D:/workspace_v11/EPWM/include/F2837xD_SysCtrl_defines.h
 source/main.obj: D:/workspace_v11/EPWM/include/F2837xD_Upp_defines.h
 source/main.obj: D:/workspace_v11/EPWM/include/F2837xD_defaultisr.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_timer.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_pwm.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_dspadc.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_pid.h
+source/main.obj: D:/workspace_v11/EPWM/include/F2837xD_Ipc_drivers.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_timer.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_pwm.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_dspadc.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_pid.h
 source/main.obj: D:/workspace_v11/EPWM/include/IQmathLib.h
 source/main.obj: C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/limits.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_filter.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_rs485.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_buckboost.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_tp.h
-source/main.obj: D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_filter.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_rs485.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_buckboost.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_tp.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_ads131.h
+source/main.obj: D:/workspace_v11/EPWM/include/inc/ss_system.h
 
 ../source/main.c:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_include.h:
+D:/workspace_v11/EPWM/include/inc/ss_minclude.h:
 
 D:/workspace_v11/EPWM/include/F28x_Project.h:
 
@@ -207,25 +209,29 @@ D:/workspace_v11/EPWM/include/F2837xD_Upp_defines.h:
 
 D:/workspace_v11/EPWM/include/F2837xD_defaultisr.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_timer.h:
+D:/workspace_v11/EPWM/include/F2837xD_Ipc_drivers.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_pwm.h:
+D:/workspace_v11/EPWM/include/inc/ss_timer.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_dspadc.h:
+D:/workspace_v11/EPWM/include/inc/ss_pwm.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_pid.h:
+D:/workspace_v11/EPWM/include/inc/ss_dspadc.h:
+
+D:/workspace_v11/EPWM/include/inc/ss_pid.h:
 
 D:/workspace_v11/EPWM/include/IQmathLib.h:
 
 C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include/limits.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_filter.h:
+D:/workspace_v11/EPWM/include/inc/ss_filter.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_rs485.h:
+D:/workspace_v11/EPWM/include/inc/ss_rs485.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_buckboost.h:
+D:/workspace_v11/EPWM/include/inc/ss_buckboost.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_tp.h:
+D:/workspace_v11/EPWM/include/inc/ss_tp.h:
 
-D:/workspace_v11/Lab20_EPWM/include/inc/ss_system.h:
+D:/workspace_v11/EPWM/include/inc/ss_ads131.h:
+
+D:/workspace_v11/EPWM/include/inc/ss_system.h:
 

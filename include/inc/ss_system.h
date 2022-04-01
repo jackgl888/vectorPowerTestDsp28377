@@ -30,10 +30,12 @@ typedef struct
   ELEC_INFO_STRUCT batVolInfo;  //电池电压参数
   ELEC_INFO_STRUCT portVolInfo;  // port voltage
   ELEC_INFO_STRUCT inCurInfo;  //输入电流参数
-  ELEC_INFO_STRUCT outCurInfo;  //输出电流参数
+  ELEC_INFO_STRUCT outCurInfo;  //放电电流参数
+  
   
   SYSTEM_STA_STRUCT  fuction;  //功能结构
   MCLC_COMMUNICATION   communication;  //通信
+  ADS131_PARA   ads131Para;        //ads
   
 }SS_SYSTEM;
 
@@ -49,6 +51,7 @@ void lcBoxInit(void);
 
 void dspSystemInit(void);
 
+void enableDog(void);
 
 extern   SS_SYSTEM  ssSystem;
 #endif

@@ -45,6 +45,9 @@ void InitSysCtrl(void)
 // Call Flash Initialization to setup flash waitstates
 // This function must reside in RAM
     InitFlash();
+
+ 
+
 #endif
 
     // *IMPORTANT*
@@ -371,6 +374,8 @@ void DisableDog(void)
     WdRegs.WDCR.all = 0x0068 | temp;
     EDIS;
 }
+
+
 
 //---------------------------------------------------------------------------
 // Example: InitPll:

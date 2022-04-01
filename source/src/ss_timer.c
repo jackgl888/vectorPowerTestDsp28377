@@ -1,4 +1,4 @@
-#include "ss_include.h"
+#include "ss_minclude.h"
 
 
 interrupt void cpu_timer0_isr(void);
@@ -128,7 +128,19 @@ Uint16  sw_timer_call(Uint16  _timer,Uint32     time,Uint16  loadType)
 
 
 
-
+/*********************************************************************************
+ *  name :void  ssDelayMs(Uint16 time)
+ *  funtion :get inverted adc channels data
+ *  inter para :cmd :  
+ *  out para :
+ *  note:
+ ********************************************************************************/
+ Uint16  ssDelayMs(Uint16 time)
+{
+    ssSystem.time = time;
+    while(ssSystem.time);
+	return true;
+}
 
 
 

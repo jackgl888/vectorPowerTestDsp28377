@@ -1,5 +1,5 @@
 
-#include "ss_include.h"     // Device Headerfile and Examples Include File
+#include "ss_minclude.h"     // Device Headerfile and Examples Include File
 
 
 
@@ -45,9 +45,11 @@ void  paraInit(void)
     ssSystem.piFunc.clc = pi_clc;
     ssSystem.piFunc.calc =  pi_calc ;
 
+	ssSystem.inCurInfo.Coeff= 2.161;
 	ssSystem.outCurInfo.Coeff= (0.0066*3000.0)/4096;      //
 	ssSystem.batVolInfo.Coeff= (3.0*3.0)/4096;    //
 	ssSystem.portVolInfo.Coeff = (3.0/4096);
+	
 
 	
 }
@@ -72,7 +74,7 @@ void  paraInit(void)
 	   filterInit();
 	 
       /*pwm init*/
-	  epwmsInit();
+       epwmsInit();
 
       /*timer init*/
 	  timerInit();
@@ -85,8 +87,30 @@ void  paraInit(void)
 
 	  /*scic485init */
 	  scicRs485Init( BAUDRATE);
+	  
+     /* ads131e08 init*/
+	//  ads131e08Init();
+
  }
 
+
+/*********************************************************************************
+ *  name :void enableDog(void)
+ *  funtion :enable  watchdog
+ *  inter para :
+ *  out para :
+ *  note:
+ ********************************************************************************/
+
+void enableDog(void)
+{
+   	volatile Uint16 temp;
+    EALLOW;
+	WdRegs.WDCNTR.bit.WDCNTR = 255;
+    temp = WdRegs.WDCR.all & 0x0007;
+    WdRegs.WDCR.all = 0x0028 | temp;
+    EDIS;
+}
 
 
 /*********************************************************************************
@@ -103,6 +127,15 @@ void dspSystemInit(void)
 	
 	/*This example function is found in the F2837xS_Gpio.c file and*/
 	//	 InitEQep1Gpio();
+#ifdef _FLASH
+	   InitFlash();
+#endif
+    /*int gpio*/
+       InitGpio();
+
+    /*enable watchdog*/
+	// enableDog();
+
 
 	/*Clear all __interrupts and initialize PIE vector table:// Disable CPU __interrupts*/
 	   DINT;
@@ -121,11 +154,13 @@ void dspSystemInit(void)
 	   lcBoxInit();
 	
 	        /*int group 1and 7*/
-	   PieCtrlRegs.PIEIER1.bit.INTx1 = 1;  //ADC
+	   PieCtrlRegs.PIECTRL.bit.ENPIE = 1;    //enable pie 
+	//   PieCtrlRegs.PIEIER1.bit.INTx1 = 1;  //ADC
+	   PieCtrlRegs.PIEIER1.bit.INTx4 = 1;  //extern int
 	   PieCtrlRegs.PIEIER1.bit.INTx7 = 1;  //TIMER0
        PieCtrlRegs.PIEIER8.bit.INTx5= 1;     // SCIC
      //   PieVectTable.EPWM1_TZ_INT =    &epwm1_tzint_isr;
-	  //  PieCtrlRegs.PIEIER2.bit.INTx1 = 1;
+	   PieCtrlRegs.PIEIER2.bit.INTx1 = 1;
 	   EALLOW;
 	   CpuSysRegs.PCLKCR0.bit.TBCLKSYNC = 1;
 	

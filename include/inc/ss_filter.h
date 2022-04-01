@@ -8,7 +8,7 @@
 typedef struct 
 {
 
-  Uint32  channelValAvg[ADCNUM];  //鍚勯�氶亾骞冲潎鍊�
+  float32  channelValAvg[ADCNUM];  //鍚勯�氶亾骞冲潎鍊�
   float32  singleChannelVal[ADCVAL_BUFFER_SIZE];  //
   
 }ADCFILTER;

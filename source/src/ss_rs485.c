@@ -1,4 +1,4 @@
-#include "ss_include.h"
+#include "ss_minclude.h"
 
 
 interrupt void scicRxData_handle(void);
@@ -46,7 +46,7 @@ void scicRs485Init(Uint32      baudRate)
     // @LSPCLK = 50 MHz (200 MHz SYSCLK) HBAUD = 0x02 and LBAUD = 0x8B.
     // @LSPCLK = 30 MHz (120 MHz SYSCLK) HBAUD = 0x01 and LBAUD = 0x86.
 
-	 // Uint16 BRR = 50e6/(baudRate*8) - 1;//配置波特率
+	 // Uint16 BRR = 50e6/(baudRate*8) - 1;//閰嶇疆娉㈢壒鐜�
     //
   //  ScicRegs.SCIHBAUD.all    =BRR/256;
    // ScicRegs.SCILBAUD.all    =BRR%256;
@@ -59,14 +59,14 @@ void scicRs485Init(Uint32      baudRate)
 	ScicRegs.SCIFFRX.all=0x0022;
     ScicRegs.SCIFFCT.all=0x0;
 
-	ScicRegs.SCICCR.bit.ADDRIDLE_MODE	 = 0;//空闲线模式
-	ScicRegs.SCICCR.bit.LOOPBKENA		 = 0;//非测试模式
+	ScicRegs.SCICCR.bit.ADDRIDLE_MODE	 = 0;//绌洪棽绾挎ā寮�
+	ScicRegs.SCICCR.bit.LOOPBKENA		 = 0;//闈炴祴璇曟ā寮�
 
 	/*DATALEN */
-	 ScicRegs.SCICCR.bit.SCICHAR          = 7; //设置数据位长度 = k+1
+	 ScicRegs.SCICCR.bit.SCICHAR          = 7; //璁剧疆鏁版嵁浣嶉暱搴� = k+1
     /*noparity*/
 	ScicRegs.SCICCR.bit.PARITYENA        =  0;
-    ScicRegs.SCICCR.bit.STOPBITS         = 0;//停止位固定为1bit
+    ScicRegs.SCICCR.bit.STOPBITS         = 0;//鍋滄浣嶅浐瀹氫负1bit
 
 	 ScicRegs.SCIFFTX.bit.TXFIFORESET=1;
     ScicRegs.SCIFFRX.bit.RXFIFORESET=1;
@@ -95,7 +95,7 @@ interrupt void scicRxData_handle(void)
 {
 	static Uint16 rxIndex =0;
 
-   //  if(ScicRegs.SCIRXST.bit.RXRDY   ==  1) //接受数据成功
+   //  if(ScicRegs.SCIRXST.bit.RXRDY   ==  1) //鎺ュ彈鏁版嵁鎴愬姛
 //  {
    // mb_port1.FrameReq.Buf[mb_port1.FrameReq.Length++] = mb_port1_get();
           ReceivedChar1[rxIndex++]=    ScicRegs.SCIRXBUF.all;
@@ -124,8 +124,8 @@ Uint16 rs485SendData(Uint16 *txBuf,Uint16 length)
   DELAY_US(50);
   while(length--)
   {
-    while (SciaRegs.SCICTL2.bit.TXRDY == 0){} //可接受新数据
-    SciaRegs.SCITXBUF.all  = *txBuf++;    //发送一个字节
+    while (SciaRegs.SCICTL2.bit.TXRDY == 0){} //鍙帴鍙楁柊鏁版嵁
+    SciaRegs.SCITXBUF.all  = *txBuf++;    //鍙戦�佷竴涓瓧鑺�
   }
 
   RS485_RX_EN() ;

@@ -11,17 +11,19 @@
 //             http://www.ti.com/ ALL RIGHTS RESERVED $
 //###########################################################################
 
+#include <inc/ss_minclude.h>
 #include "F2837xD_device.h"       // F2837xD Header File Include File
 #include "F2837xD_Examples.h"     // F2837xD Examples Include File
-#include "ss_include.h"
 //---------------------------------------------------------------------------
 // CPU Timer 1 Interrupt
-interrupt void TIMER1_ISR(void)
+interrupt void TIMER1_ISR(void)    //1MS 
 {
     // Insert ISR Code here
 	   Uint16 i; 
-		   
-	   //锟斤拷锟斤拷锟绞憋拷锟絤s 锟捷硷拷锟斤拷锟斤拷
+
+	   if(ssSystem.time>0)
+	   	ssSystem.time--;
+	   //
 		 for(i=0;i<SWT_COUNT;i++)
 		 {
 			 if(ssSystem.swTimer[i].counter)
@@ -30,7 +32,7 @@ interrupt void TIMER1_ISR(void)
 			 }
 		 }
 
-
+      
 
 
 
@@ -243,7 +245,7 @@ interrupt void USER12_ISR(void)
 interrupt void ADCA1_ISR(void)
 {
     // Insert ISR Code here
-    //GetConvertedValueOfAdc();
+    GetConvertedValueOfAdc();
 
     static Uint16 index =0;
 
@@ -352,10 +354,10 @@ interrupt void ADCD1_ISR(void)
 }
 
 // 1.7 - Timer 0 Interrupt
-interrupt void TIMER0_ISR(void)
+interrupt void TIMER0_ISR(void)   //5MS
 {
     // Insert ISR Code here
-		  /*5ms锟斤拷锟斤拷一锟斤拷pi*/
+		  /*5ms閿熸枻鎷烽敓鏂ゆ嫹涓�閿熸枻鎷穚i*/
 	  buckBoostCmcCtrl();
 	
 	 // CpuTimer0.InterruptCount++;
@@ -889,6 +891,8 @@ interrupt void MCBSPB_TX_ISR(void)
 // 7.1 - DMA Channel 1 Interrupt
 interrupt void DMA_CH1_ISR(void)
 {
+    PieCtrlRegs.PIEACK.all = PIEACK_GROUP7;
+
     // Insert ISR Code here
 
     // To receive more interrupts from this PIE group,

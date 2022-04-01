@@ -3,7 +3,7 @@
 #include "F28x_Project.h"
 
 
-
+#define   CC_ONLY      1
 
 
 #define DP_RESET_FAULT_TIME     40000        //鏁呴殰鎭㈠鏃堕棿,鍛ㄦ湡涓暟锛屽ぇ绾︽槸2s
@@ -14,8 +14,8 @@
 #define DP_VOLTAGV_IN_MAX       (12.0f)        //最大输入电压
 #define DP_VOLTAGV_IN_MIN       (1.0f)        //最大输入电压V
 #define DP_VOLTAGV_OUT_MAX      (5.0f)        //最大输出电压V
-#define DP_CURRENT_IN_MAX       (12.0f)        //最大输入电流A
-#define DP_CURRENT_OUT_MAX      (12.0f)        //最大输出 电流A
+#define DP_CURRENT_IN_MAX       (10.0f)        //最大输入电流A
+#define DP_CURRENT_OUT_MAX      (10.0f)        //最大输出 电流A
 #define DP_CURRENT_IN_OFFSET    (2048L)            //鐢垫祦閲囨牱鐨�1.65V鍋忕Щ鐢靛帇瀵瑰簲鐨凙DC閲囨牱鍊�
 #define DP_CURRENT_OUT_OFFSET   (2048L)            //鐢垫祦閲囨牱鐨�1.65V鍋忕Щ鐢靛帇瀵瑰簲鐨凙DC閲囨牱鍊�
 
@@ -23,16 +23,22 @@
 #define DP_VOLTAGE_OUT_RATIO    (99.00f/4095)  //杈撳嚭鐢靛帇姣斾緥 3.3*33
 #define DP_CURRENT_OUT_RATIO    (15.00f/4095)  //杈撳嚭鐢垫祦姣斾緥 3.3/22/0.01,鏁版嵁鍋忓樊澶ф椂锛屾牎鍑嗚鍊�
 
-#define DEFAULTVOLOUT    (3.0f)    //上电时输出电压
-#define DEFAULTCUROUT    (3.0f)    //默认输出电流
+#define DEFAULTVOLOUT    (3.8f)    //上电时输出电压
+#define DEFAULTCUROUT    (2.0f)    //默认输出电流
 
 #define    CHARGE_SWITCH_ON()      GpioDataRegs.GPACLEAR.bit.GPIO2 = 1         //充电放电控制开
 #define    CHARGE_SWITCH_OFF()      GpioDataRegs.GPASET.bit.GPIO2 = 1          //充电放电控制关
+
+#define   AMP_REF         2.064               //电流检测运算 放参考 电压
+#define   AMP_FACTOR      50.4                //运算放大倍数
+#define   RES_VAL         3.0                   //采样电阻阻值
+
 
 
 typedef struct {
 
   float32 Value;   //实际电压电流数据
+  float32 sampleVal;   //采样电压值
   float32 Coeff;   //转换为实际电压电流时的系数
   int32 Offset;  //
   Uint16 overCurTimes;  //过流次数
@@ -76,7 +82,7 @@ typedef union {
    struct {
      Uint16 EN:     1; //使能
      Uint16 RUN:    1; //运行
-     Uint16 RDY:    2; //就绪
+     Uint16 RDY:    3; //就绪
      Uint16 FAUT:   1; //故障
      Uint16 ALM:    1; //警告
      Uint16 DIR:    1; //0：正向  1：反向

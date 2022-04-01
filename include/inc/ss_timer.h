@@ -54,6 +54,8 @@ void timerInit(void);
 
 // .hhhh
 
+Uint16	ssDelayMs(Uint16 time);
+
 
 
 #endif

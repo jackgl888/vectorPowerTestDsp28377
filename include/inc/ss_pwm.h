@@ -10,11 +10,11 @@
 
 #define TBCTLVAL  0x200A              // Up-down cnt, timebase = SYSCLKOUT
 
-#define DBTIME_FED      30 //涓婂崌娌挎鍖烘椂闂达紝T = TBCLK*50,杩欓噷澶х害涓�500ns
-#define DBTIME_RED      30 //涓嬮檷娌挎鍖烘椂闂达紝T = TBCLK*50,杩欓噷澶х害涓�500ns
+#define DBTIME_FED      50 //涓婂崌娌挎鍖烘椂闂达紝T = TBCLK*50,杩欓噷澶х害涓�500ns
+#define DBTIME_RED      50 //涓嬮檷娌挎鍖烘椂闂达紝T = TBCLK*50,杩欓噷澶х害涓�500ns
 
-#define  DUTYCYCLEMAX        (SP  * 0.80f)  // (EPwm1Regs.TBPRD * 56 * 0.40f)    //  500*56*0.4= 11200
-#define  DUTYCYCLEMIN        (SP   * 0.50f)   //(EPwm1Regs.TBPRD * 56 * 0.01f)    //    4650
+#define  DUTYCYCLEMAX      400 //  (SP  * 0.38f)  // (EPwm1Regs.TBPRD * 56 * 0.40f)    //  500*56*0.4= 11200
+#define  DUTYCYCLEMIN         10// (SP   * 0.01f)   //      //(EPwm1Regs.TBPRD * 56 * 0.01f)    //    4650       放电时参数 (SP   * 0.50f)
 #define  MEP_SCALE_FACTOR     56             //  MEP  steps    per epwmclk
 
 #define abs(x)         (x > 0 ? x : -x)
@@ -41,9 +41,10 @@ void  epwmsInit(void);
 void dr_EpwmsSrcTZ(volatile struct EPWM_REGS *EPwmRegs);
 void dr_EpwmsClrTZ(volatile struct EPWM_REGS *EPwmRegs);
 void dr_Epwm1Upate(int32 PWM_DUTY_CMP);
-void swicthToDischargeMode(void);
-void swicthToChargeMode(void);
-void swicthToSyncMode(void);
+void swicthToSynDischargeMode(void);
+void swicthToSynChargeMode(void);
+void swicthToAynChargeMode(void);
+void swicthToAynDisChargeMode(void);
 void  forcePwmOutputLow(void);
 
 

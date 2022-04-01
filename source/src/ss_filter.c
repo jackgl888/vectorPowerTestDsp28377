@@ -1,4 +1,4 @@
-#include "ss_include.h"
+#include "ss_minclude.h"
 
 
 
@@ -78,16 +78,17 @@ void filterAdcChannels(void)
 			        for ( count=0;count<  ARRAY_FILTER_SIZE;count++)
 					{
 					 
-                      ssSystem.adcFilter.singleChannelVal[count] = ssSystem.dspAdc.adcValue[i][count];
+                     // ssSystem.adcFilter.singleChannelVal[count] = ssSystem.dspAdc.adcValue[i][count];
 
-			          // singleChannelValBuf[count]=  ssSystem.dspAdc.adcValue[i][count];
+			           singleChannelValBuf[count]=  ssSystem.dspAdc.adcValue[i][count];
 					}
 					/*排序*/
 					arrayBubbleSorting(  ssSystem.adcFilter.singleChannelVal, ARRAY_FILTER_SIZE );
                     /*均值*/
 					for(count=ARRAY_STARTING_POS ; count< ARRAY_ENDING_POS ;count++)  
 					{
-						singleChannelValSum +=  ssSystem.adcFilter.singleChannelVal[count];
+						//singleChannelValSum +=  ssSystem.adcFilter.singleChannelVal[count];
+						singleChannelValSum += singleChannelValBuf[count];
 					}
 					/*得到最终的滤波数据*/
 					ssSystem.adcFilter.channelValAvg[i] = (Uint32)(singleChannelValSum/ ARRAY_AVG_LEN);   
@@ -95,6 +96,7 @@ void filterAdcChannels(void)
 					singleChannelValSum=0;
 					                       
 		    }  /////////
+		    
 		 
 }
 

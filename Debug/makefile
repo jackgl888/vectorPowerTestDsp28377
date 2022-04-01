@@ -15,6 +15,7 @@ ORDERED_OBJS += \
 "./source/F2837xD_CodeStartBranch.obj" \
 "./source/F2837xD_CpuTimers.obj" \
 "./source/F2837xD_DefaultISR.obj" \
+"./source/F2837xD_Dma.obj" \
 "./source/F2837xD_EPwm.obj" \
 "./source/F2837xD_GlobalVariableDefs.obj" \
 "./source/F2837xD_Gpio.obj" \
@@ -25,6 +26,7 @@ ORDERED_OBJS += \
 "./source/F2837xD_SysCtrl.obj" \
 "./source/F2837xD_usDelay.obj" \
 "./source/main.obj" \
+"./source/src/ss_ads131.obj" \
 "./source/src/ss_buckBoost.obj" \
 "./source/src/ss_dspAdc.obj" \
 "./source/src/ss_filter.obj" \
@@ -168,7 +170,7 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 EPWM.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla1 --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 --advice:performance=all --define=CPU1 -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"EPWM.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib" -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="EPWM_linkInfo.xml" --rom_model -o "EPWM.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla1 --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 --fp_mode=relaxed --advice:performance=all --define=CPU1 -g --diag_warning=225 --diag_wrap=off --display_error_number --abi=coffabi -z -m"EPWM.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/lib" -i"C:/ti/ccs1100/ccs/tools/compiler/ti-cgt-c2000_21.6.0.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="EPWM_linkInfo.xml" --rom_model -o "EPWM.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
@@ -182,8 +184,8 @@ EPWM.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "source\Example_EPwmSetup.obj" "source\F2837xD_Adc.obj" "source\F2837xD_CodeStartBranch.obj" "source\F2837xD_CpuTimers.obj" "source\F2837xD_DefaultISR.obj" "source\F2837xD_EPwm.obj" "source\F2837xD_GlobalVariableDefs.obj" "source\F2837xD_Gpio.obj" "source\F2837xD_Ipc.obj" "source\F2837xD_Ipc_Driver_Util.obj" "source\F2837xD_PieCtrl.obj" "source\F2837xD_PieVect.obj" "source\F2837xD_SysCtrl.obj" "source\F2837xD_usDelay.obj" "source\main.obj" "source\src\ss_buckBoost.obj" "source\src\ss_dspAdc.obj" "source\src\ss_filter.obj" "source\src\ss_pid.obj" "source\src\ss_pwm.obj" "source\src\ss_rs485.obj" "source\src\ss_system.obj" "source\src\ss_timer.obj" "source\src\ss_tp.obj" 
-	-$(RM) "source\Example_EPwmSetup.d" "source\F2837xD_Adc.d" "source\F2837xD_CpuTimers.d" "source\F2837xD_DefaultISR.d" "source\F2837xD_EPwm.d" "source\F2837xD_GlobalVariableDefs.d" "source\F2837xD_Gpio.d" "source\F2837xD_Ipc.d" "source\F2837xD_Ipc_Driver_Util.d" "source\F2837xD_PieCtrl.d" "source\F2837xD_PieVect.d" "source\F2837xD_SysCtrl.d" "source\main.d" "source\src\ss_buckBoost.d" "source\src\ss_dspAdc.d" "source\src\ss_filter.d" "source\src\ss_pid.d" "source\src\ss_pwm.d" "source\src\ss_rs485.d" "source\src\ss_system.d" "source\src\ss_timer.d" "source\src\ss_tp.d" 
+	-$(RM) "source\Example_EPwmSetup.obj" "source\F2837xD_Adc.obj" "source\F2837xD_CodeStartBranch.obj" "source\F2837xD_CpuTimers.obj" "source\F2837xD_DefaultISR.obj" "source\F2837xD_Dma.obj" "source\F2837xD_EPwm.obj" "source\F2837xD_GlobalVariableDefs.obj" "source\F2837xD_Gpio.obj" "source\F2837xD_Ipc.obj" "source\F2837xD_Ipc_Driver_Util.obj" "source\F2837xD_PieCtrl.obj" "source\F2837xD_PieVect.obj" "source\F2837xD_SysCtrl.obj" "source\F2837xD_usDelay.obj" "source\main.obj" "source\src\ss_ads131.obj" "source\src\ss_buckBoost.obj" "source\src\ss_dspAdc.obj" "source\src\ss_filter.obj" "source\src\ss_pid.obj" "source\src\ss_pwm.obj" "source\src\ss_rs485.obj" "source\src\ss_system.obj" "source\src\ss_timer.obj" "source\src\ss_tp.obj" 
+	-$(RM) "source\Example_EPwmSetup.d" "source\F2837xD_Adc.d" "source\F2837xD_CpuTimers.d" "source\F2837xD_DefaultISR.d" "source\F2837xD_Dma.d" "source\F2837xD_EPwm.d" "source\F2837xD_GlobalVariableDefs.d" "source\F2837xD_Gpio.d" "source\F2837xD_Ipc.d" "source\F2837xD_Ipc_Driver_Util.d" "source\F2837xD_PieCtrl.d" "source\F2837xD_PieVect.d" "source\F2837xD_SysCtrl.d" "source\main.d" "source\src\ss_ads131.d" "source\src\ss_buckBoost.d" "source\src\ss_dspAdc.d" "source\src\ss_filter.d" "source\src\ss_pid.d" "source\src\ss_pwm.d" "source\src\ss_rs485.d" "source\src\ss_system.d" "source\src\ss_timer.d" "source\src\ss_tp.d" 
 	-$(RM) "source\F2837xD_CodeStartBranch.d" "source\F2837xD_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

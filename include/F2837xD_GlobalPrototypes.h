@@ -99,8 +99,33 @@ extern void DMACH1AddrConfig(volatile Uint16 *DMA_Dest,
                              volatile Uint16 *DMA_Source);
 extern void DMACH1AddrConfig32bit(volatile Uint32 *DMA_Dest,
                                   volatile Uint32 *DMA_Source);
+/*
+* burst传输：burst传输是由每一个ADC中断标志触发，ADC每次转化完成，该传输模式启动。
+* void DMACH1BurstConfig(Uint16 bsize, int16 srcbstep, int16 desbstep)
+* bsize    ：一帧传输的字数
+* srcbstep ：源地址步长。每次传输完一个字后增加一个步长。
+* desbstep ：目的地址步长。每次传输完一个字后增加一个步长。
+*/
 extern void DMACH1BurstConfig(Uint16 bsize, int16 srcbstep, int16 desbstep);
+
+/*
+ * transfer传输
+ * 在上一次burst传输完成后，源和目的地址的基础上进行偏移。
+ * tsize    ：每tsize+1帧传输后中断一次
+ * srctstep ：每次中断后，源地址偏移，可以为负数，负增长。
+ * deststep ：每次中断后，目的地偏移，可以为负数，负增长。
+ */
+
+
 extern void DMACH1TransferConfig(Uint16 tsize, int16 srctstep, int16 deststep);
+/*
+ * wrap传输，实现循环传输
+ * srcwsize ：传输srcwsize+1帧后，pDMA_Source = pDMA_Source + srcwstep;
+ * srcwstep ：源地址回绕步长。
+ * deswsize ：传输deswsize+1帧后，pDMA_Dest = pDMA_Dest + deswstep;
+ * deswstep ：目的地址回绕步长。
+ */
+
 extern void DMACH1WrapConfig(Uint16 srcwsize, int16 srcwstep, Uint16 deswsize,
                              int16 deswstep);
 extern void DMACH1ModeConfig(Uint16 persel, Uint16 perinte, Uint16 oneshot,

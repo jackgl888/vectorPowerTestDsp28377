@@ -50,7 +50,7 @@ void InitEPwm1Gpio(void)
     // Comment out other unwanted lines.
 		GpioCtrlRegs.GPAMUX1.bit.GPIO12= 0;
 	//GPIO_SetupPinMux(4, GPIO_MUX_CPU1, 0);
-
+    //  INPUT MODE 
 	GpioCtrlRegs.GPADIR.bit.GPIO12 = 0;
     //
 	GpioCtrlRegs.GPAPUD.bit.GPIO12 = 0;    // Enable pull-up on GPIO12 (TZ1)

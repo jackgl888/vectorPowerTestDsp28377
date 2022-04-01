@@ -6,6 +6,7 @@ SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../source/src/ss_ads131.c \
 ../source/src/ss_buckBoost.c \
 ../source/src/ss_dspAdc.c \
 ../source/src/ss_filter.c \
@@ -17,6 +18,7 @@ C_SRCS += \
 ../source/src/ss_tp.c 
 
 C_DEPS += \
+./source/src/ss_ads131.d \
 ./source/src/ss_buckBoost.d \
 ./source/src/ss_dspAdc.d \
 ./source/src/ss_filter.d \
@@ -28,6 +30,7 @@ C_DEPS += \
 ./source/src/ss_tp.d 
 
 OBJS += \
+./source/src/ss_ads131.obj \
 ./source/src/ss_buckBoost.obj \
 ./source/src/ss_dspAdc.obj \
 ./source/src/ss_filter.obj \
@@ -39,6 +42,7 @@ OBJS += \
 ./source/src/ss_tp.obj 
 
 OBJS__QUOTED += \
+"source\src\ss_ads131.obj" \
 "source\src\ss_buckBoost.obj" \
 "source\src\ss_dspAdc.obj" \
 "source\src\ss_filter.obj" \
@@ -50,6 +54,7 @@ OBJS__QUOTED += \
 "source\src\ss_tp.obj" 
 
 C_DEPS__QUOTED += \
+"source\src\ss_ads131.d" \
 "source\src\ss_buckBoost.d" \
 "source\src\ss_dspAdc.d" \
 "source\src\ss_filter.d" \
@@ -61,6 +66,7 @@ C_DEPS__QUOTED += \
 "source\src\ss_tp.d" 
 
 C_SRCS__QUOTED += \
+"../source/src/ss_ads131.c" \
 "../source/src/ss_buckBoost.c" \
 "../source/src/ss_dspAdc.c" \
 "../source/src/ss_filter.c" \
