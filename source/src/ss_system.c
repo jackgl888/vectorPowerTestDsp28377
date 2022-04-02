@@ -45,6 +45,8 @@ void  paraInit(void)
     ssSystem.piFunc.clc = pi_clc;
     ssSystem.piFunc.calc =  pi_calc ;
 
+	
+    ssSystem.pwmPara.refVal = 600;
 	ssSystem.inCurInfo.Coeff= 2.161;
 	ssSystem.outCurInfo.Coeff= (0.0066*3000.0)/4096;      //
 	ssSystem.batVolInfo.Coeff= (3.0*3.0)/4096;    //

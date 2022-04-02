@@ -190,15 +190,15 @@ void dr_Epwm1Upate(int32 PWM_DUTY_CMP)
     {
         PWM_DUTY_CMP = DUTYCYCLEMAX ;
     }
-      //if( abs(PWM_DUTY_CMP - ssSystem.pwmPara.cmpValue   ) > 2 )
+   //   if( abs(PWM_DUTY_CMP - ssSystem.pwmPara.cmpValue   ) > 2 )
 	  	ssSystem.pwmPara.cmpValue = PWM_DUTY_CMP;//去抖
 
 //    if(ssSystem.fuction.bit.CC ==1)
 //    {
 //      //  if(ssSystem.fuction.bit.CHARGE==1)
 //      //  {
-//            val = (float32)(PWM_DUTY_CMP)/(float32)EPwm1Regs.TBPRD;
-//            EPwm1Regs.CMPA.bit.CMPA	=   (Uint16)(PWM_DUTY_CMP );
+//            val = (float32)(ssSystem.pwmPara.refVal - ssSystem.pwmPara.cmpValue)/(float32)EPwm1Regs.TBPRD;
+//            EPwm1Regs.CMPA.bit.CMPA	=   (Uint16)(ssSystem.pwmPara.refVal - ssSystem.pwmPara.cmpValue);
 //            EPwm1Regs.CMPA.bit.CMPAHR  = (Uint16)( splitFloat(val*100 )*MEP_SCALE_FACTOR )<<8;
 ////        }
 ////        else
@@ -210,7 +210,7 @@ void dr_Epwm1Upate(int32 PWM_DUTY_CMP)
 //    }
 //
 //    else if(ssSystem.fuction.bit.CV ==1)
-        EPwm1Regs.CMPA.bit.CMPA	=400- ssSystem.pwmPara.cmpValue;
+       EPwm1Regs.CMPA.bit.CMPA	=   ssSystem.pwmPara.refVal - ssSystem.pwmPara.cmpValue;
     //EPwm1Regs.CMPA.bit.CMPAHR  =   ssSystem.pwmPara.cmpValueLi;
 
 }

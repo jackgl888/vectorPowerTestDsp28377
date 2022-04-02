@@ -70,7 +70,7 @@ void pi_calc( PI_STRUCT *p)
 {
    
 
-    p->Ek_0     = p->Ref - p->Fdb;  //
+    p->Ek_0     = p->Ref -  p->Fdb ;// p->Fdb;  //
 
     p->Inc = (p->a0*p->Ek_0) -  (p->a1*p->Ek_1) ;//
 
